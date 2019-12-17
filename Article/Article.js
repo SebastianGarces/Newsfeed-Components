@@ -143,9 +143,9 @@ const createArticle = objData => {
 	articleP3.textContent = objData.thirdParagraph;
 	articleBtn.textContent = "Expand";
 
-	articleBtn.addEventListener("click", () =>
-		article.classList.toggle("article-open")
-	);
+	articleBtn.addEventListener("click", () => {
+		article.classList.toggle("article-open");
+	});
 
 	return article;
 };
@@ -153,3 +153,12 @@ const createArticle = objData => {
 const articles = document.querySelector(".articles");
 
 data.forEach(obj => articles.appendChild(createArticle(obj)));
+
+gsap.from(".article", {
+	duration: 0.8,
+	scale: 0.6,
+	opacity: 0,
+	stagger: 0.2,
+	ease: "back",
+	delay: 0.3
+});
