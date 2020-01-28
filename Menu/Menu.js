@@ -1,12 +1,12 @@
 /* This is the data we will be using, study it but don't change anything, yet. */
 
 let menuItems = [
-  'Students',
-  'Faculty',
-  "What's New",
-  'Tech Trends',
-  'Music',
-  'Log Out'
+	"Students",
+	"Faculty",
+	"What's New",
+	"Tech Trends",
+	"Music",
+	"Log Out"
 ];
 
 /* 
@@ -33,3 +33,44 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
+
+const createMenu = menuItems => {
+	const menu = document.createElement("div");
+	const ul = document.createElement("ul");
+	menuItems.forEach(element => {
+		let item = document.createElement("li");
+		item.textContent = element;
+		ul.appendChild(item);
+	});
+
+	menu.classList.add("menu");
+
+	menu.appendChild(ul);
+
+	const menuBtn = document.querySelector(".menu-button");
+
+	menuBtn.addEventListener("click", () => {
+		gsap.from(".menu", { duration: 0.2, opacity: 0, x: "-300" });
+
+		menu.classList.contains("menu--open")
+			? gsap.to("li", {
+					duration: 0,
+					opacity: 1
+			  })
+			: gsap.from("li", {
+					duration: 1,
+					opacity: 0,
+					x: "-130",
+					stagger: 0.1,
+					ease: "bounce"
+			  });
+
+		menu.classList.toggle("menu--open");
+	});
+
+	return menu;
+};
+
+const header = document.querySelector(".header");
+
+header.prepend(createMenu(menuItems));
